@@ -46,7 +46,7 @@ steps:
       $params["AppendSignature"] = $false
       $params["GeneratePkcs7"] = $true
       $params["GenerateDigestPath"] = '$(Build.SourcesDirectory)'
-      $params["Pkcs7Options"] = 'DetachedSignedData'
+      $params["Pkcs7Options"] = 'Embedded'
       $params["Pkcs7Oid"] = "1.3.6.1.5.5.7.3.3"
       $params["Endpoint"] = 'https://www.martellotech.com'
       $params["CodeSigningAccountName"] = 'gstewart'

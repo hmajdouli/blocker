@@ -42,7 +42,7 @@ steps:
       $params["FilesFolderDepth"] = '1'
       #$params["FilesCatalog"] = "C:\users\gstewart\blocker\artifacts.txt"
       $params["FileDigest"] = 'SHA384'
-
+      $params["SignDigest"] = $true
       $params["AppendSignature"] = $false
       $params["GeneratePkcs7"] = $true
       $params["GenerateDigestPath"] = '$(Build.SourcesDirectory)'

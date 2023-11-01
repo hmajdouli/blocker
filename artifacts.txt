@@ -1,0 +1,2 @@
+artifacts\Gsx.PowerShell.Modules.1.8.0.zip
+artifacts/npv-probe-core-shaded-3.13.0-14547.jar

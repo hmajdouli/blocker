@@ -35,15 +35,17 @@ steps:
       
       Install-Module -Name AzureCodeSigning -RequiredVersion 0.2.24 -Force -Repository PSGallery
 
+      "List files before"
+      dir $(Build.SourcesDirectory) -Recurse
+      
       $params = @{}
 
-      $params["FilesFolder"] = 'artifacts'
-      $params["FilesFolderFilter"] = 'jar,zip'
-      $params["FilesFolderDepth"] = '1'
-      #$params["FilesCatalog"] = "C:\users\gstewart\blocker\artifacts.txt"
+      # $params["FilesFolder"] = 'artifacts'
+      # $params["FilesFolderFilter"] = 'jar,zip'
+      # $params["FilesFolderDepth"] = '1'
+      $params["FilesCatalog"] = "artifacts.txt"
       $params["FileDigest"] = 'SHA384'
       $params["SignDigest"] = $true
-      $params["AppendSignature"] = $false
       $params["GeneratePkcs7"] = $true
       $params["GenerateDigestPath"] = '$(Build.SourcesDirectory)'
       $params["Pkcs7Options"] = 'Embedded'

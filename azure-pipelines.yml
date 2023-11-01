@@ -40,7 +40,7 @@ steps:
 
       $params = @{}
 
-      # $params["FilesFolder"] = 'artifacts'
+      $params["FilesFolder"] = '$(Build.SourcesDirectory)\artifacts'
       # $params["FilesFolderFilter"] = 'jar,zip'
       # $params["FilesFolderDepth"] = '1'
       $params["FilesCatalog"] = "$(Build.SourcesDirectory)\artifacts.txt"
@@ -61,6 +61,6 @@ steps:
       $Env:AZURE_CLIENT_SECRET = "$Env:servicePrincipalKey"
 
       "Call code signing"
-      Invoke-AzureCodeSigning @params $(Build.SourcesDirectory)\artifacts
+      Invoke-AzureCodeSigning @params -Debug
 
       dir $(Build.SourcesDirectory) -Recurse

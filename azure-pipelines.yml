@@ -37,13 +37,13 @@ steps:
 
       "List files before"
       dir $(Build.SourcesDirectory) -Recurse
-      
+
       $params = @{}
 
       # $params["FilesFolder"] = 'artifacts'
       # $params["FilesFolderFilter"] = 'jar,zip'
       # $params["FilesFolderDepth"] = '1'
-      $params["FilesCatalog"] = "artifacts.txt"
+      $params["FilesCatalog"] = "$(Build.SourcesDirectory)\artifacts.txt"
       $params["FileDigest"] = 'SHA384'
       $params["SignDigest"] = $true
       $params["GeneratePkcs7"] = $true

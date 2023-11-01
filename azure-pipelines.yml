@@ -49,6 +49,7 @@ steps:
       # $params["GeneratePkcs7"] = $true
       $params["GenerateDigestPath"] = '$(Build.SourcesDirectory)'
       $params["Pkcs7Options"] = 'DetachedSignedData'
+
       # $params["Pkcs7Oid"] = "1.3.6.1.5.5.7.3.3"
       $params["Endpoint"] = 'https://www.martellotech.com'
       $params["CodeSigningAccountName"] = 'gstewart'
@@ -60,6 +61,6 @@ steps:
       $Env:AZURE_CLIENT_SECRET = "$Env:servicePrincipalKey"
 
       "Call code signing"
-      Invoke-AzureCodeSigning @params
+      Invoke-AzureCodeSigning @params $(Build.SourcesDirectory)\artifacts
 
       dir $(Build.SourcesDirectory) -Recurse

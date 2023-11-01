@@ -18,17 +18,49 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
   
-- task: AzureCodeSigning@0
-  displayName: Sign with Azure Code Signing
+# - task: AzureCodeSigning@0
+#   displayName: Sign with Azure Code Signing
+#   inputs:
+#     AzureTenantID: '$Env:tenantId'
+#     AzureClientID: '$(client-id)'
+#     AzureClientSecret: '$(client-secret)'
+#     Endpoint: 'https://wus2.codesigning.azure.net/'
+#     CodeSigningAccountName: 'my-codesigning-account'
+#     CertificateProfileName: 'my-certificate-profile'
+#     FilesFolder: '$(Build.SourcesDirectory)/MauiApp1/MauiApp1/bin/Release/net6.0-windows10.0.19041.0/win10-x64/AppPackages/'
+#     FilesFolderFilter: 'msix'
+#     FilesFolderRecurse: true
+#     FilesFolderDepth: 1
+#     FileDigest: 'SHA256'
+- task: PowerShell@2
   inputs:
-    AzureTenantID: '$(tenant-id)'
-    AzureClientID: '$(client-id)'
-    AzureClientSecret: '$(client-secret)'
-    Endpoint: 'https://wus2.codesigning.azure.net/'
-    CodeSigningAccountName: 'my-codesigning-account'
-    CertificateProfileName: 'my-certificate-profile'
-    FilesFolder: '$(Build.SourcesDirectory)/MauiApp1/MauiApp1/bin/Release/net6.0-windows10.0.19041.0/win10-x64/AppPackages/'
-    FilesFolderFilter: 'msix'
-    FilesFolderRecurse: true
-    FilesFolderDepth: 1
-    FileDigest: 'SHA256'
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      
+      Write-Host "Hello World"
+      
+      Install-Module -Name AzureCodeSigning -RequiredVersion 0.2.24 -Force -Repository PSGallery
+
+      $params = @{}
+
+      $params["FilesFolder"] = 'artifacts'
+      $params["FilesFolderFilter"] = 'jar,zip'
+      $params["FilesFolderDepth"] = '1'
+      #$params["FilesCatalog"] = "C:\users\gstewart\blocker\artifacts.txt"
+      $params["FileDigest"] = 'SHA384'
+
+      $params["AppendSignature"] = $false
+      $params["GeneratePkcs7"] = $true
+      $params["Pkcs7Options"] = 'DetachedSignedData'
+      $params["Endpoint"] = 'https://www.martellotech.com'
+      $params["CodeSigningAccountName"] = 'gstewart'
+      $params["CertificateProfileName"] = "whatisthis"
+
+      $Env:AZURE_TENANT_ID = "$Env:tenantId"
+      $Env:AZURE_CLIENT_CERTIFICATE_PATH = 'https://vdxdevops.vault.azure.net/certificates/martelloTechnologiesCodeSigning/905d65b14b964178b1a5eefc1fdeb9ab'
+      $env:AZURE_CLIENT_ID = "$Env:servicePrincipalId"
+      $Env:AZURE_CLIENT_SECRET = "$Env:servicePrincipalKey"
+
+      "Call code signing"
+      Invoke-AzureCodeSigning @params

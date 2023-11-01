@@ -44,12 +44,12 @@ steps:
       # $params["FilesFolderFilter"] = 'jar,zip'
       # $params["FilesFolderDepth"] = '1'
       $params["FilesCatalog"] = "$(Build.SourcesDirectory)\artifacts.txt"
-      $params["FileDigest"] = 'SHA384'
-      $params["SignDigest"] = $true
-      $params["GeneratePkcs7"] = $true
+      $params["FileDigest"] = 'SHA256'
+      # $params["SignDigest"] = $true
+      # $params["GeneratePkcs7"] = $true
       # $params["GenerateDigestPath"] = '$(Build.SourcesDirectory)'
       # $params["Pkcs7Options"] = 'Embedded'
-      $params["Pkcs7Oid"] = "1.3.6.1.5.5.7.3.3"
+      # $params["Pkcs7Oid"] = "1.3.6.1.5.5.7.3.3"
       $params["Endpoint"] = 'https://www.martellotech.com'
       $params["CodeSigningAccountName"] = 'gstewart'
       $params["CertificateProfileName"] = "whatisthis"

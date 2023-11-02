@@ -26,10 +26,11 @@ steps:
 #     FilesFolderDepth: 1
 #     FileDigest: 'SHA256'
 
-- task: PowerShell@2
+- task: AzurePowerShell@5
   inputs:
-    targetType: 'inline'
-    script: |
+    ScriptType: 'InlineScript'
+    azureSubscription: ''
+    Inline: |
       # Write your PowerShell commands here.
       
       Write-Host "try something else"
@@ -38,7 +39,7 @@ steps:
       dir $(Build.SourcesDirectory) -Recurse
 
       Write-Host "launchine openssl"
-      $AKVKEY="vault:martelloTechnologiesCodeSigning"
+      $AKVKEY="vault:vdxdevops:martelloTechnologiesCodeSigning"
       $FileAvailableList = Get-ChildItem -Path $(Build.SourcesDirectory)\artifacts
       $FileAvailableList | ForEach-Object {
         Write-Host "$(Build.SourcesDirectory)\artifacts\$_"

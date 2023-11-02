@@ -42,8 +42,8 @@ steps:
       $FileAvailableList = Get-ChildItem -Path $(Build.SourcesDirectory)\artifacts
       $FileAvailableList | ForEach-Object {
         Write-Host "$(Build.SourcesDirectory)\artifacts\$_"
-        & '$(Build.SourcesDirectory)\openssl_x64-windows\tools\openssl\openssl.exe' dgst -binary -sha256 -out "$(_)hash256" "$(Build.SourcesDirectory)\artifacts\$_"
-        & '$(Build.SourcesDirectory)\openssl_x64-windows\tools\openssl\openssl.exe' pkeyutl -engine e_akv -sign -keyform engine -inkey $AKVKEY -in "$(_)hash256" -out "$(_)hash256".sig -pkeyopt rsa_padding_mode:pss -pkeyopt digest:sha256
+        & '$(Build.SourcesDirectory)\openssl_x64-windows\tools\openssl\openssl.exe' dgst -binary -sha256 -out "$_.hash256" "$(Build.SourcesDirectory)\artifacts\$_"
+        & '$(Build.SourcesDirectory)\openssl_x64-windows\tools\openssl\openssl.exe' pkeyutl -engine e_akv -sign -keyform engine -inkey $AKVKEY -in "$_.hash256" -out "$_.hash256.sig" -pkeyopt rsa_padding_mode:pss -pkeyopt digest:sha256
       }   
       & '$(Build.SourcesDirectory)\openssl_x64-windows\tools\openssl\openssl.exe' pkeyutl -engine e_akv -sign -keyform engine -inkey $AKVKEY -in $(Build.SourcesDirectory)\artifacts\postgresql.jar -out blart.p7s
   

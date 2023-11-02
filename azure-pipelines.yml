@@ -1,0 +1,49 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: windows-2019
+
+steps:
+
+# - task: AzureCodeSigning@0
+#   displayName: Sign with Azure Code Signing
+#   inputs:
+#     AzureTenantID: '$Env:tenantId'
+#     AzureClientID: '$(client-id)'
+#     AzureClientSecret: '$(client-secret)'
+#     Endpoint: 'https://wus2.codesigning.azure.net/'
+#     CodeSigningAccountName: 'my-codesigning-account'
+#     CertificateProfileName: 'my-certificate-profile'
+#     FilesFolder: '$(Build.SourcesDirectory)/MauiApp1/MauiApp1/bin/Release/net6.0-windows10.0.19041.0/win10-x64/AppPackages/'
+#     FilesFolderFilter: 'msix'
+#     FilesFolderRecurse: true
+#     FilesFolderDepth: 1
+#     FileDigest: 'SHA256'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      
+      Write-Host "try something else"
+      
+      "List files before"
+      dir $(Build.SourcesDirectory) -Recurse
+
+      Write-Host "launchine openssl"
+      $AKVKEY="vault:martelloTechnologiesCodeSigning"
+      $FileAvailableList = Get-ChildItem -Path $(Build.SourcesDirectory)\artifacts
+      $FileAvailableList | ForEach-Object {
+        Write-Host "$(Build.SourcesDirectory)\artifacts\$_"
+        & '$(Build.SourcesDirectory)\openssl_x64-windows\tools\openssl\openssl.exe' pkeyutl -engine e_akv -sign -keyform engine -inkey $AKVKEY -outform der -in "$(Build.SourcesDirectory)\artifacts\$_" -out "$(Build.SourcesDirectory)\artifacts\$_.p7s"        
+      }   
+      & '$(Build.SourcesDirectory)\openssl_x64-windows\tools\openssl\openssl.exe' pkeyutl -engine e_akv -sign -keyform engine -inkey $AKVKEY -in $(Build.SourcesDirectory)\artifacts\postgresql.jar -out blart.p7s
+  
+      dir $(Build.SourcesDirectory) -Recurse

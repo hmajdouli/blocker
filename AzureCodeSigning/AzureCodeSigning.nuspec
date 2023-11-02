@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>AzureCodeSigning</id>
+    <version>0.2.24</version>
+    <authors>James Parsons</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://go.microsoft.com/fwlink/?linkid=2237001</licenseUrl>
+    <iconUrl>https://raw.githubusercontent.com/Azure/azure-code-signing-action/main/icon.png</iconUrl>
+    <description>Enables the signing of a set of files with the Azure Code Signing service.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) Microsoft Corporation</copyright>
+    <tags>PSEdition_Core Windows Azure CodeSigning PSModule PSIncludes_Function PSFunction_Invoke-AzureCodeSigning PSCommand_Invoke-AzureCodeSigning</tags>
+  </metadata>
+</package>

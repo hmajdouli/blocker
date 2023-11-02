@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<coreProperties xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.openxmlformats.org/package/2006/metadata/core-properties">
+  <dc:creator>James Parsons</dc:creator>
+  <dc:description>Enables the signing of a set of files with the Azure Code Signing service.</dc:description>
+  <dc:identifier>AzureCodeSigning</dc:identifier>
+  <version>0.2.24</version>
+  <keywords>PSEdition_Core Windows Azure CodeSigning PSModule PSIncludes_Function PSFunction_Invoke-AzureCodeSigning PSCommand_Invoke-AzureCodeSigning</keywords>
+  <lastModifiedBy>NuGet.Build.Tasks.Pack, Version=6.7.0.127, Culture=neutral, PublicKeyToken=31bf3856ad364e35;.NET Standard 2.0</lastModifiedBy>
+</coreProperties>

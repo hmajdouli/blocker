@@ -1,0 +1,32 @@
+TOPIC
+    about_AzureCodeSigning
+
+SHORT DESCRIPTION
+    Sign files with the Azure Code Signing service.
+
+LONG DESCRIPTION
+    Sign files with the Azure Code Signing service. Before you can perform this operation, you need to create an Azure Code Signing account and install the .NET 6 runtime. Authentication is handled by "DefaultAzureCredential".
+
+EXAMPLES
+    Signs and timestamps .exe/.dll files under the given folder with the Azure Code Signing service.
+
+    $params = @{
+        Endpoint = "https://wus2.codesigning.azure.net/"
+        CodeSigningAccountName = "my-account"
+        CertificateProfileName = "my-cert-profile"
+        FilesFolder = "bin/Release/net6.0-windows10.0.19041.0/win10-x64/"
+        FilesFolderFilter = "exe,dll"
+        FileDigest = "SHA256"
+        TimestampRfc3161 = "http://timestamp.acs.microsoft.com"
+        TimestampDigest = "SHA256"
+    }
+    Invoke-AzureCodeSigning @params
+
+KEYWORDS
+    azure,code,signing
+
+SEE ALSO
+    .NET 6 runtime: https://dotnet.microsoft.com/download/dotnet/6.0
+    DefaultAzureCredential: https://learn.microsoft.com/dotnet/api/azure.identity.defaultazurecredential
+    GitHub Action: https://github.com/azure/azure-code-signing-action
+    Azure Pipelines Task: https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.AzureCodeSigning

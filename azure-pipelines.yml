@@ -40,7 +40,7 @@ steps:
 
       $params = @{}
 
-      $params["FilesFolder"] = '$(Build.SourcesDirectory)\artifacts'
+      $params["FilesFolder"] = '$(Build.SourcesDirectory)\artifacts\'
       # $params["FilesFolderFilter"] = 'jar,zip'
       # $params["FilesFolderDepth"] = '1'
       $params["FilesCatalog"] = "$(Build.SourcesDirectory)\artifacts.txt"

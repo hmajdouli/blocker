@@ -51,3 +51,5 @@ steps:
       & '$(Build.SourcesDirectory)\openssl_x64-windows\tools\openssl\openssl.exe' pkeyutl -engine e_akv -sign -keyform engine -inkey $AKVKEY -in $(Build.SourcesDirectory)\artifacts\postgresql.jar -out blart.p7s
   
       dir $(Build.SourcesDirectory) -Recurse
+    azurePowerShellVersion: 'LatestVersion'
+    pwsh: true

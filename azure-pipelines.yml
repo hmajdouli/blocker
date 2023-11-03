@@ -48,7 +48,12 @@ steps:
         Write-Host "signing hash"
         & '$(Build.SourcesDirectory)\openssl_x64-windows\tools\openssl\openssl.exe' pkeyutl -engine e_akv -sign -keyform engine -inkey $AKVKEY -in "$(Build.SourcesDirectory)\artifacts\$_.hash256" -out "$(Build.SourcesDirectory)\artifacts\$_.hash256.signed" -pkeyopt rsa_padding_mode:pss -pkeyopt digest:sha256
         Write-Host "trying to p7s"
-        & '$(Build.SourcesDirectory)\openssl_x64-windows\tools\openssl\openssl.exe'  cms -sign -signer $AKVKEY -binary -md sha256 -outform der -in "$(Build.SourcesDirectory)\artifacts\$_" -out "$(Build.SourcesDirectory)\artifacts\$_.p7s" 
+        $filePath = "$(Build.SourcesDirectory)\artifacts\$_"
+        $fileContent = Get-Content -Path $filePath -Raw
+        $hashBytes = [System.Security.Cryptography.SHA256]::Create().ComputeHash([System.Text.Encoding]::UTF8.GetBytes($fileContent))
+        $signedHash = Invoke-AzKeyVaultCertificateOperation -VaultName $vaultName -CertificateName $certificateName -Name "sign" -Value $hashBytes
+        $signaturePath = "$(Build.SourcesDirectory)\artifacts\$_.p7s"
+        [System.IO.File]::WriteAllBytes($signaturePath, $signedHash.Result)
       }   
   
       dir $(Build.SourcesDirectory) -Recurse
